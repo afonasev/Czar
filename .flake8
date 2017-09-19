@@ -1,0 +1,4 @@
+[flake8]
+exclude = .git,__pycache__,docs/source/conf.py,old,build,dist,migrations
+application-import-names = backend,manage
+import-order-style = google
