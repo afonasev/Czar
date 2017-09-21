@@ -22,3 +22,16 @@ class Command(admin.ModelAdmin):
     list_display = ('group', 'title', 'description', 'is_disabled')
     list_editable = ('is_disabled', )
     list_filter = ('group', 'is_disabled')
+
+
+@admin.register(models.Call)
+class Call(admin.ModelAdmin):
+
+    date_hierarchy = 'time'
+    list_display = (
+        'command',
+        'result',
+        'output',
+        'time',
+    )
+    list_filter = ('result', 'command__group', 'command')
