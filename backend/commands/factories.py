@@ -35,3 +35,11 @@ class CallFactory(factory.django.DjangoModelFactory):
     source = models.Call.API
     result = models.Call.SUCCESS_RESULT
     output = factory.Faker('text')
+
+
+class AccessTokenFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = 'commands.AccessToken'
+
+    user = factory.SubFactory(UserFactory)
+    token = models.generate_token()
