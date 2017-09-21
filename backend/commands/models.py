@@ -1,10 +1,17 @@
 import functools
 import subprocess
+import uuid
 
+from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 SUCCESS = 'success'
 FAIL = 'fail'
+
+
+def generate_token():
+    return uuid.uuid4().hex
 
 
 def log_calls(func):
@@ -90,3 +97,27 @@ class Call(models.Model):
 
     def __str__(self):
         return f'{self.command} - {self.time}'
+
+
+class AccessToken(models.Model):
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    token = models.CharField(
+        max_length=50, default=generate_token, editable=False,
+    )
+    created_at = models.DateTimeField(auto_now=True, editable=False)
+    expired_at = models.DateTimeField(blank=True, null=True)
+    is_disabled = models.BooleanField(default=False)
+
+    def is_active(self):
+        if (
+            self.is_disabled or (
+                self.expired_at and
+                self.expired_at < timezone.now()
+            )
+        ):
+            return False
+        return True
+
+    def __str__(self):
+        return self.token
