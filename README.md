@@ -36,6 +36,10 @@
 
     isort -rc backend
 
+###### Generate fake data (groups, commands, calls amd etc.)
+
+    python manage.py fill_fake_data
+
 ### Run develop server with docker-compose
 
     docker-compose up
