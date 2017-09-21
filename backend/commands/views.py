@@ -10,6 +10,9 @@ class RunCommand(View):
     # pylint:disable=unused-argument
     def post(self, request, group, command):
         command = get_object_or_404(
-            models.Command, title=command, group__title=group,
+            models.Command,
+            title=command,
+            group__title=group,
+            is_disabled=False,
         )
-        return JsonResponse(command.run())
+        return JsonResponse(command.run(source=models.Call.API))

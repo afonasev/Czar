@@ -10,7 +10,7 @@ FAIL = 'fail'
 def log_calls(func):
 
     @functools.wraps(func)
-    def wrapped(command):
+    def wrapped(command, source):
         result = func(command)
 
         if SUCCESS in result:
@@ -20,7 +20,12 @@ def log_calls(func):
             result_status = Call.FAIL_RESULT
             output = result[FAIL]
 
-        Call(command=command, result=result_status, output=output).save()
+        Call(
+            command=command,
+            result=result_status,
+            output=output,
+            source=source,
+        ).save()
 
         return result
 
@@ -69,7 +74,16 @@ class Call(models.Model):
         (FAIL_RESULT, FAIL),
     )
 
+    ADMIN = 1
+    API = 2
+
+    SOURCES = (
+        (ADMIN, 'Admin'),
+        (API, 'Api'),
+    )
+
     command = models.ForeignKey(Command, related_name='calls')
+    source = models.IntegerField(choices=SOURCES)
     result = models.IntegerField(choices=RESULTS)
     output = models.TextField(blank=True)
     time = models.DateTimeField(auto_now=True, editable=False)
