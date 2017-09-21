@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from . import factories, models
+from .management.commands import fill_fake_data
 
 
 class GroupModelTest(TestCase):
@@ -84,3 +85,9 @@ class RunCommandViewTest(TestCase):
             'command': command.title,
         }))
         assert response.status_code == 404
+
+
+class FillFakeDataTest(TestCase):
+
+    def test_run(self):
+        fill_fake_data.Command().handle()
