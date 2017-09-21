@@ -1,5 +1,7 @@
 import factory
 
+from . import models
+
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -23,3 +25,12 @@ class CommandFactory(factory.django.DjangoModelFactory):
     group = factory.SubFactory(GroupFactory)
     title = factory.Faker('word')
     body = factory.Faker('text')
+
+
+class CallFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = 'commands.Call'
+
+    command = factory.SubFactory(CommandFactory)
+    result = models.Call.SUCCESS_RESULT
+    output = factory.Faker('text')
