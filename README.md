@@ -5,35 +5,48 @@
 
 ### Run dev server
 
-##### Install deps
+###### Install deps
 
     pip install -r requirements.txt
 
-##### Apply migrations
+###### Apply migrations
     python manage.py migrate
 
-##### Run debug server
+###### Run debug server
 
     python manage.py runserver
 
 ### Tests, linters, etc.
 
-##### Run all tests and linters
+###### Run all tests and linters
 
     ./scripts/test.sh
 
-##### Run tests
+###### Run tests
 
     py.test --cov=./backend
 
-##### Run linters
+###### Run linters
 
     flake8 backend
     pylint backend
+    isort -c
 
-##### Sort imports
+###### Sort imports
 
     isort -rc backend
+
+### Run develop server with docker-compose
+
+    docker-compose up
+
+###### Run tests and linters in container
+
+    docker exec -it czar_web_1 sh ./scripts/test.sh
+
+###### Show server logs
+
+    docker logs -f czar_web_1
 
 ### Git pre-commit hook
 

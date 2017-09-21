@@ -32,5 +32,6 @@ class CallFactory(factory.django.DjangoModelFactory):
         model = 'commands.Call'
 
     command = factory.SubFactory(CommandFactory)
+    source = models.Call.API
     result = models.Call.SUCCESS_RESULT
     output = factory.Faker('text')
