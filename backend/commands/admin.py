@@ -41,6 +41,7 @@ class Call(admin.ModelAdmin):
         'result',
         'output',
         'time',
+        'token',
     )
     list_filter = ('result', 'source', 'command__group', 'command')
 
