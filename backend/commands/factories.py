@@ -24,7 +24,7 @@ class CommandFactory(factory.django.DjangoModelFactory):
 
     group = factory.SubFactory(GroupFactory)
     title = factory.Faker('word')
-    body = factory.Faker('text')
+    body = 'ls .'
 
 
 class CallFactory(factory.django.DjangoModelFactory):

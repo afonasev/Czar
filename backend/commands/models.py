@@ -3,6 +3,8 @@ import subprocess
 import uuid
 
 from django.conf import settings
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils import timezone
 
@@ -14,10 +16,26 @@ def generate_token():
     return uuid.uuid4().hex
 
 
+def permission_key_by_object(obj):
+    return f'{obj.__class__.__name__}.{obj}'
+
+
+def create_object_permission(obj):
+    return Permission.objects.create(
+        codename=permission_key_by_object(obj),
+        name=str(obj),
+        content_type=ContentType.objects.get_for_model(obj.__class__),
+    )
+
+
+def check_object_permission(user, obj):
+    return user.has_perm('commands.' + permission_key_by_object(obj))
+
+
 def log_calls(func):
 
     @functools.wraps(func)
-    def wrapped(command, source):
+    def wrapped(command, source, token=None):
         result = func(command)
 
         if SUCCESS in result:
@@ -32,6 +50,7 @@ def log_calls(func):
             result=result_status,
             output=output,
             source=source,
+            token=token,
         ).save()
 
         return result
@@ -43,6 +62,10 @@ class Group(models.Model):
 
     title = models.SlugField(unique=True)
     description = models.TextField(blank=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        create_object_permission(self)
 
     def __str__(self):
         return self.title
@@ -94,6 +117,9 @@ class Call(models.Model):
     result = models.IntegerField(choices=RESULTS)
     output = models.TextField(blank=True)
     time = models.DateTimeField(auto_now=True, editable=False)
+    token = models.ForeignKey(
+        'AccessToken', related_name='calls', null=True, default=None,
+    )
 
     def __str__(self):
         return f'{self.command} - {self.time}'
@@ -118,6 +144,9 @@ class AccessToken(models.Model):
         ):
             return False
         return True
+
+    def has_permission(self, group):
+        return check_object_permission(self.user, group)
 
     def __str__(self):
         return self.token
