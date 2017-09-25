@@ -1,6 +1,16 @@
-web:
-  build: .
-  volumes:
-    - .:/var/src/
-  ports:
-    - "8000:8000"
+version: '2'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/development/web/Dockerfile
+    entrypoint: sh docker/development/web/entrypoint.sh
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/src/
+      - db-data:/var/db/
+
+volumes:
+  db-data:

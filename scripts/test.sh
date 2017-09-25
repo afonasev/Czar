@@ -1,3 +1,4 @@
+#!/bin/sh
 set -e
 isort -c
 flake8 backend

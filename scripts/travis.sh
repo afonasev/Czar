@@ -1,3 +1,4 @@
+#!/bin/sh
 set -e
 pip install -r requirements.txt
 ./scripts/test.sh
