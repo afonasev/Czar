@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  web:
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/production/web/Dockerfile
+    entrypoint: sh docker/production/web/entrypoint.sh
+    environment:
+      - PRODUCTION=1
+      - SECRET_KEY=${SECRET_KEY}
+    volumes:
+      - .:/var/src/
+      - db-data:/var/db/
+      - logs:/var/src/logs/
+      - static:/var/src/static/
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    volumes:
+      - ./docker/production/nginx/:/etc/nginx:ro
+      - static:/var/src/static/:ro
+    ports:
+      - "${PORT}:80"
+    links:
+      - web
+
+volumes:
+  db-data:
+  static:
+  logs:
