@@ -11,7 +11,7 @@ else:
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = ['.afonasev.ru']
+    ALLOWED_HOSTS = ['.afonasev.ru', '127.0.0.1']
 
 VALIDATORS_PATH = 'django.contrib.auth.password_validation.'
 
