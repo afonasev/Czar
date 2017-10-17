@@ -1,5 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -e
+isort -rc backend
 isort -c
 flake8 backend
 pylint backend
