@@ -93,3 +93,5 @@ db.sqlite3
 
 # static
 /static/
+
+.idea/

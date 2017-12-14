@@ -1,7 +1,6 @@
-#!/usr/bin/env bash
-set -e
+#!/usr/bin/env bash -e
 isort -rc backend
 isort -c
 flake8 backend
-pylint backend
+pylint --rcfile=setup.cfg backend
 py.test --cov=./backend
