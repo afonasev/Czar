@@ -15,11 +15,14 @@ else:
 
 VALIDATORS_PATH = 'django.contrib.auth.password_validation.'
 
-AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': VALIDATORS_PATH + 'UserAttributeSimilarityValidator'},
-    {'NAME': VALIDATORS_PATH + 'MinimumLengthValidator'},
-    {'NAME': VALIDATORS_PATH + 'CommonPasswordValidator'},
-    {'NAME': VALIDATORS_PATH + 'NumericPasswordValidator'}
-]
+AUTH_PASSWORD_VALIDATORS = [{
+    'NAME': VALIDATORS_PATH + 'UserAttributeSimilarityValidator'
+}, {
+    'NAME': VALIDATORS_PATH + 'MinimumLengthValidator'
+}, {
+    'NAME': VALIDATORS_PATH + 'CommonPasswordValidator'
+}, {
+    'NAME': VALIDATORS_PATH + 'NumericPasswordValidator'
+}]
 
 X_FRAME_OPTIONS = 'DEN'

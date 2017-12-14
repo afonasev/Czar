@@ -20,12 +20,33 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AccessToken',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('token', models.CharField(default=backend.commands.models.generate_token, editable=False, max_length=50)),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID'
+                    )
+                ),
+                (
+                    'token',
+                    models.CharField(
+                        default=backend.commands.models.generate_token,
+                        editable=False,
+                        max_length=50
+                    )
+                ),
                 ('created_at', models.DateTimeField(auto_now=True)),
                 ('expired_at', models.DateTimeField(blank=True, null=True)),
                 ('is_disabled', models.BooleanField(default=False)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    'user',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL
+                    )
+                ),
             ],
         ),
     ]

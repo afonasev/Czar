@@ -16,6 +16,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='call',
             name='token',
-            field=models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='calls', to='commands.AccessToken'),
+            field=models.ForeignKey(
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='calls',
+                to='commands.AccessToken'
+            ),
         ),
     ]

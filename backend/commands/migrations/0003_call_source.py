@@ -15,7 +15,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='call',
             name='source',
-            field=models.IntegerField(choices=[(1, 'Admin'), (2, 'Api')], default=1),
+            field=models.IntegerField(
+                choices=[(1, 'Admin'), (2, 'Api')], default=1
+            ),
             preserve_default=False,
         ),
     ]

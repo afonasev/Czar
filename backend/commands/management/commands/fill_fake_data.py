@@ -10,9 +10,9 @@ fake = Faker()
 
 
 def make_text(min_paragraphs, max_paragraphs):
-    return '\n'.join(fake.paragraphs(
-        nb=randint(min_paragraphs, max_paragraphs)
-    ))
+    return '\n'.join(
+        fake.paragraphs(nb=randint(min_paragraphs, max_paragraphs))
+    )
 
 
 class Command(BaseCommand):
@@ -64,10 +64,12 @@ class Command(BaseCommand):
             models.Call(
                 command=choice(commands),
                 source=choice([
-                    models.Call.API, models.Call.ADMIN,
+                    models.Call.API,
+                    models.Call.ADMIN,
                 ]),
                 result=choice([
-                    models.Call.SUCCESS_RESULT, models.Call.FAIL_RESULT,
+                    models.Call.SUCCESS_RESULT,
+                    models.Call.FAIL_RESULT,
                 ]),
                 output=make_text(1, 3),
             ).save()
