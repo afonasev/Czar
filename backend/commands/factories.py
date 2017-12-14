@@ -4,6 +4,7 @@ from . import models
 
 
 class UserFactory(factory.django.DjangoModelFactory):
+
     class Meta:
         model = 'auth.User'
 
@@ -12,6 +13,7 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 class GroupFactory(factory.django.DjangoModelFactory):
+
     class Meta:
         model = 'commands.Group'
 
@@ -19,6 +21,7 @@ class GroupFactory(factory.django.DjangoModelFactory):
 
 
 class CommandFactory(factory.django.DjangoModelFactory):
+
     class Meta:
         model = 'commands.Command'
 
@@ -28,6 +31,7 @@ class CommandFactory(factory.django.DjangoModelFactory):
 
 
 class CallFactory(factory.django.DjangoModelFactory):
+
     class Meta:
         model = 'commands.Call'
 
@@ -38,6 +42,7 @@ class CallFactory(factory.django.DjangoModelFactory):
 
 
 class AccessTokenFactory(factory.DjangoModelFactory):
+
     class Meta:
         model = 'commands.AccessToken'
 

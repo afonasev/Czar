@@ -16,11 +16,29 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Call',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('result', models.IntegerField(choices=[(1, 'success'), (2, 'fail')])),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID'
+                    )
+                ),
+                (
+                    'result',
+                    models.IntegerField(choices=[(1, 'success'), (2, 'fail')])
+                ),
                 ('output', models.TextField(blank=True)),
                 ('time', models.DateTimeField(auto_now=True)),
-                ('command', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='calls', to='commands.Command')),
+                (
+                    'command',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='calls',
+                        to='commands.Command'
+                    )
+                ),
             ],
         ),
     ]

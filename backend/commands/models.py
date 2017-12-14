@@ -118,7 +118,10 @@ class Call(models.Model):
     output = models.TextField(blank=True)
     time = models.DateTimeField(auto_now=True, editable=False)
     token = models.ForeignKey(
-        'AccessToken', related_name='calls', null=True, default=None,
+        'AccessToken',
+        related_name='calls',
+        null=True,
+        default=None,
     )
 
     def __str__(self):
@@ -129,19 +132,17 @@ class AccessToken(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     token = models.CharField(
-        max_length=50, default=generate_token, editable=False,
+        max_length=50,
+        default=generate_token,
+        editable=False,
     )
     created_at = models.DateTimeField(auto_now=True, editable=False)
     expired_at = models.DateTimeField(blank=True, null=True)
     is_disabled = models.BooleanField(default=False)
 
     def is_active(self):
-        if (
-            self.is_disabled or (
-                self.expired_at and
-                self.expired_at < timezone.now()
-            )
-        ):
+        if (self.is_disabled
+                or (self.expired_at and self.expired_at < timezone.now())):
             return False
         return True
 

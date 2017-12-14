@@ -10,14 +10,21 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Command',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID'
+                    )
+                ),
                 ('title', models.SlugField()),
                 ('description', models.TextField(blank=True)),
                 ('body', models.TextField()),
@@ -27,7 +34,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Group',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID'
+                    )
+                ),
                 ('title', models.SlugField(unique=True)),
                 ('description', models.TextField(blank=True)),
             ],
@@ -35,7 +50,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='command',
             name='group',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='commands', to='commands.Group'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='commands',
+                to='commands.Group'
+            ),
         ),
         migrations.AlterUniqueTogether(
             name='command',

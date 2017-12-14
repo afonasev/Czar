@@ -28,6 +28,7 @@ class Command(admin.ModelAdmin):
     def run_commands(self, request, queryset):
         for command in queryset:
             command.run(source=models.Call.ADMIN)
+
     run_commands.short_description = 'Run commands'
 
 
@@ -66,4 +67,5 @@ class AccessToken(admin.ModelAdmin):
     # pylint:disable=unused-argument
     def disable_tokens(self, request, queryset):
         queryset.update(is_disabled=True)
+
     disable_tokens.short_description = 'Disable tokens'

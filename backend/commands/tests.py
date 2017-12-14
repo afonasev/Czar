@@ -17,10 +17,16 @@ def get_admin_token(*args, **kw):
 
 
 def run_command_with_api(client, command, token=None):
-    return client.post(reverse('commands:run-command', kwargs={
-        'group': command.group.title,
-        'command': command.title,
-    }), HTTP_ACCESS_TOKEN=token or get_admin_token().token)
+    return client.post(
+        reverse(
+            'commands:run-command',
+            kwargs={
+                'group': command.group.title,
+                'command': command.title,
+            }
+        ),
+        HTTP_ACCESS_TOKEN=token or get_admin_token().token
+    )
 
 
 class GroupModelTest(TestCase):
@@ -112,10 +118,16 @@ class AccessTokenModelTest(TestCase):
 class RunCommandViewTest(TestCase):
 
     def test_unknown_command_404(self):
-        response = self.client.post(reverse('commands:run-command', kwargs={
-            'group': 'test-group',
-            'command': 'test-command',
-        }), HTTP_ACCESS_TOKEN=get_admin_token().token)
+        response = self.client.post(
+            reverse(
+                'commands:run-command',
+                kwargs={
+                    'group': 'test-group',
+                    'command': 'test-command',
+                }
+            ),
+            HTTP_ACCESS_TOKEN=get_admin_token().token
+        )
         assert response.status_code == 404
 
     def test_success(self):
@@ -144,10 +156,15 @@ class RunCommandViewPermissionTest(TestCase):
 
     def test_without_token_403(self):
         command = factories.CommandFactory()
-        response = self.client.post(reverse('commands:run-command', kwargs={
-            'group': command.group.title,
-            'command': command.title,
-        }))
+        response = self.client.post(
+            reverse(
+                'commands:run-command',
+                kwargs={
+                    'group': command.group.title,
+                    'command': command.title,
+                }
+            )
+        )
         assert response.status_code == 403
 
     def test_unknown_token_403(self):
