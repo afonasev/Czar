@@ -1,4 +1,5 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
+set -e
 echo 'pip install'
 pip install -r requirements.txt
 echo 'isort'
