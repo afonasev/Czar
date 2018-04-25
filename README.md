@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/Afonasev/Czar.svg?branch=master)](https://travis-ci.org/Afonasev/Czar)
 [![Coverage Status](https://coveralls.io/repos/github/Afonasev/Czar/badge.svg?branch=master)](https://coveralls.io/github/Afonasev/Czar?branch=master)
 
+Example django project with docker, linters, etc.
+
 ### For development
 
 ##### Run development server
@@ -16,9 +18,6 @@
 
 ##### Create fake data for development
     docker-compose exec web python manage.py fill_fake_data
-
-### Run production server
-    SECRET_KEY=my_key PORT=my_port docker-compose -f docker-compose.prod.yml up
 
 ### Git pre-commit hook (don't forget `chmod +x .git/hooks/pre-commit`)
     #!/usr/bin/env bash
